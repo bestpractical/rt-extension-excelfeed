@@ -10,7 +10,7 @@ DESCRIPTION
     files rather than inline HTML reports.
 
 RT VERSION
-    Works with RT 4.2, 4.4
+    Works with RT 4.2, 4.4, 5.0
 
 INSTALLATION
     "perl Makefile.PL"
@@ -19,6 +19,9 @@ INSTALLATION
         May need root permissions
 
     patch RT
+        For RT 5 no patches are required.
+        For RT 4 version 4.4.2 or higher no patches are required.
+
         The following patches are also needed. Note the versions and only
         apply the patches needed for your version.
 
@@ -33,13 +36,9 @@ INSTALLATION
 
             patch -p1 -d /path/to/rt < etc/chart_callback.patch
 
-        Apply for 4.2:
+        Apply for 4.2, 4.4.0, 4.4.1
 
             patch -p1 -d /path/to/rt < etc/tabs_privileged_callback.patch
-
-        Apply for 4.4:
-
-            patch -p1 -d /path/to/rt < etc/tabs_privileged_callback_44.patch
 
     Add this line to /opt/rt4/etc/RT_SiteConfig.pm
             Plugin('RT::Extension::ExcelFeed');
