@@ -49,13 +49,9 @@ Apply for 4.2 and 4.4.0. Not needed for 4.2.13 or later, or 4.4.1.
 
     patch -p1 -d /path/to/rt < etc/chart_callback.patch
 
-Apply for 4.2:
+Apply for 4.2, 4.4.0 and 4.4.1. Not needed for 4.4.2 or later:
 
     patch -p1 -d /path/to/rt < etc/tabs_privileged_callback.patch
-
-Apply for 4.4:
-
-    patch -p1 -d /path/to/rt < etc/tabs_privileged_callback_44.patch
 
 =item Add this line to F</opt/rt4/etc/RT_SiteConfig.pm>
 
