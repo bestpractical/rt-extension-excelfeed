@@ -19,7 +19,7 @@ inline HTML reports.
 
 =head1 RT VERSION
 
-Works with RT 4.2, 4.4, 5.0
+Works with RT 4.2.10+, 4.4, 5.0
 
 =head1 INSTALLATION
 
