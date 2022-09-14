@@ -60,6 +60,7 @@ sub SendDashboard {
         ContextUser  => undef,
         Email        => undef,
         Subscription => undef,
+        Dashboard    => undef,
         DryRun       => 0,
         @_,
     );
@@ -70,6 +71,11 @@ sub SendDashboard {
     my $rows = $subscription->SubValue('Rows');
 
     my $DashboardId = $subscription->SubValue('DashboardId');
+    my @dashboards  = $args{ Dashboard };
+    if( @dashboards and !grep { $_ == $DashboardId } @dashboards) {
+        $RT::Logger->info("Dashboard $DashboardId not in list of requested dashboards; skipping");
+        return;
+    }
 
     my $dashboard = RT::Dashboard->new($currentuser);
     my ($ok, $msg) = $dashboard->LoadById($DashboardId);
