@@ -48,6 +48,20 @@ May need root permissions
 
 =back
 
+=head1 CONFIGURATION
+
+=over
+
+=item C<$HideChartDownloadButton>
+
+By default, a "Download as Microsoft Execel Spreadsheet" button is enabled
+on Charts. You can disable it by adding the following config to your
+RT_SiteConfig.pm:
+
+    Set( $HideChartDownloadButton, 1 );
+
+=back
+
 =head1 AUTHOR
 
 Best Practical Solutions, LLC E<lt>modules@bestpractical.comE<gt>
