@@ -128,6 +128,7 @@ while (my $row = $Collection->Next) {
             $val = '' unless defined $val;
             $val = $no_html->scrub($val);
             $val = HTML::Entities::decode_entities($val);
+            chomp $val;
             $val;
         } @$col;
         for (my $j = 0; $j < @row_values; $j++) {
