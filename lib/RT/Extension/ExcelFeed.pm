@@ -59,6 +59,26 @@ RT_SiteConfig.pm:
 
 =back
 
+=cut
+
+if ( RT->Config->can('RegisterPluginConfig') ) {
+    RT->Config->RegisterPluginConfig(
+        Plugin  => 'ExcelFeed',
+        Content => [
+            {
+                Name => 'HideChartDownloadButton',
+                Help => 'https://metacpan.org/pod/RT::Extension::ExcelFeed#$HideChartDownloadButton',
+            },
+        ],
+        Meta    => {
+            HideChartDownloadButton => {
+                Type   => 'SCALAR',
+                Widget => '/Widgets/Form/Boolean',
+            },
+        }
+    );
+}
+
 =head1 AUTHOR
 
 Best Practical Solutions, LLC E<lt>modules@bestpractical.comE<gt>
