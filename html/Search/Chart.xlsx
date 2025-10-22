@@ -91,7 +91,7 @@ for my $section (qw(thead tbody tfoot)) {
         $current_cell = 0;
         for my $cell ( @{ $row->{'cells'} } ) {
             my $value = $cell->{value};
-            $worksheet->write($current_row, $current_cell, $value);
+            RT::Extension::ExcelFeed->WriteExcel( $worksheet, $current_row, $current_cell, $value );
             $current_cell++;
         }
         $current_row++;

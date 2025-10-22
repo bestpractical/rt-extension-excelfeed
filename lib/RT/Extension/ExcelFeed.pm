@@ -62,6 +62,19 @@ RT_SiteConfig.pm:
 
 =back
 
+=cut
+
+sub WriteExcel {
+    my $class = shift;
+    my $sheet = shift;
+    my $row   = shift;
+    my $col   = shift;
+    my $value = shift;
+
+    my $write_method = $value =~ /^(-|\+|=|\@|")/ ? 'write_string' : 'write';
+    $sheet->$write_method( $row, $col, $value );
+}
+
 =head1 AUTHOR
 
 Best Practical Solutions, LLC E<lt>modules@bestpractical.comE<gt>
