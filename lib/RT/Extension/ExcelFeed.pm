@@ -69,11 +69,19 @@ if ( RT->Config->can('RegisterPluginConfig') ) {
                 Name => 'HideChartDownloadButton',
                 Help => 'https://metacpan.org/pod/RT::Extension::ExcelFeed#$HideChartDownloadButton',
             },
+            {
+                Name => 'ExcelFeedProgressiveRows',
+                Help => 'https://metacpan.org/pod/RT::Extension::ExcelFeed#$ExcelFeedProgressiveRows',
+            },
         ],
         Meta    => {
             HideChartDownloadButton => {
                 Type   => 'SCALAR',
                 Widget => '/Widgets/Form/Boolean',
+            },
+            ExcelFeedProgressiveRows => {
+                Type   => 'SCALAR',
+                Widget => '/Widgets/Form/Integer',
             },
         }
     );
