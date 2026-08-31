@@ -52,7 +52,7 @@ $Format
 $PreserveNewLines => 0
 </%ARGS>
 <%ONCE>
-my $no_html = HTML::Scrubber->new( deny => '*' );
+my $default_scrubber = HTML::Scrubber->new( deny => '*' );
 </%ONCE>
 <%INIT>
 require HTML::Entities;
@@ -70,8 +70,9 @@ my $should_loc = { map { $_ => 1 } qw(Status) };
 my $col_entry = sub {
     my $col = shift;
     return {
-        header => loc($col->{title} || $col->{attribute}),
-        map    => $m->comp(
+        header    => loc($col->{title} || $col->{attribute}),
+        attribute => $col->{attribute},
+        map       => $m->comp(
             "/Elements/ColumnMap",
             Name  => $col->{attribute},
             Attr  => 'value',
@@ -100,6 +101,20 @@ else {
                           : () } @Format];
 }
 
+# Every cell is scrubbed with $no_html below. A callback may replace it
+# wholesale, or set a per-column 'scrubber' key on an entry in @columns to
+# scrub just that column differently. @columns is a list of column groups
+# (one group unless PreserveNewLines is set), each an arrayref of entries
+# carrying 'header', 'attribute', 'map' and 'should_loc'.
+my $no_html = $default_scrubber;
+$m->callback(
+    CallbackName => 'ModifyScrubber',
+    Scrubber     => \$no_html,
+    Columns      => \@columns,
+    Class        => $Class,
+    Format       => $Format,
+);
+
 $m->clear_buffer;
 
 my ($xlsx_file, $fh);
@@ -126,7 +141,7 @@ while (my $row = $Collection->Next) {
             my $val = ProcessColumnMapValue($_->{map}, Arguments => [$row, $i++], Escape => 0);
             $val = loc($val) if $_->{should_loc};
             $val = '' unless defined $val;
-            $val = $no_html->scrub($val);
+            $val = ( $_->{scrubber} || $no_html )->scrub($val);
             $val = HTML::Entities::decode_entities($val);
             $val;
         } @$col;
