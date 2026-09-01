@@ -1,3 +1,7 @@
+0.12 2026-09-01
+ - Add ModifyScrubber callback to XLSXExport, letting a site keep markup in
+   chosen columns without loosening the scrub on the rest of the export
+
 0.11 2024-09-20
  - Add BeforeExport callback to pre-process results
  - Add ability to return the generated workbook, rather than send to browser
