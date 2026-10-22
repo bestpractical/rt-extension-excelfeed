@@ -131,7 +131,14 @@ SUMMARY
         local $HTML::Mason::Commands::session{CurrentUser} = $context_user;
         # Run each search and push the resulting file into the @attachments array
         foreach my $search (@searches){
-            my $search_content = $search->{'Attribute'}->Content;
+            # Deleted searches, and those whose owner the user can't load, have
+            # no Id. Without the right to see a search, Content is not a hash.
+            my $search_content = $search->Id ? $search->{'Attribute'}->Content : undef;
+            unless ( ref $search_content eq 'HASH' ) {
+                RT->Logger->warning( "Unable to load saved search in dashboard " . $dashboard->Id . " for user " . $currentuser->Name . ", skipping" );
+                next;
+            }
+
             my $xlsx;
 
             if ( ( $search_content->{SearchType} // '' ) eq 'Chart' ) {
